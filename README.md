@@ -84,8 +84,8 @@ TEXT = create_vocab_text()
 ```
 ※以下のファイルは容量が大きいためgitリポジトリには格納されていませんので、前者については京大ＨＰからダウンロード、後者はNotebookに従って学習を行いモデルパラメータを各自保存してご利用ください。
 
-pytorch_model.bin（pytorch-pretrained-BERT)
-bert_fine_tuning_chABSA_22epoch.pth(ネガポジ学習済みパラメータファイル）
+pytorch_model.bin（pytorch-pretrained-BERT)  
+bert_fine_tuning_chABSA_22epoch.pth(ネガポジ学習済みパラメータファイル）  
 
 
 **utils\predict.py**に学習済みモデルのビルド(**build_bert_model**)と推論(**predict**)のメソッドを定義してあるので、これを利用してサンプルの文章をインプットして予測値とAttentionを可視化します。
