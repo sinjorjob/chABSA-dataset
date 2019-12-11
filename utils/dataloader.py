@@ -20,10 +20,9 @@ import torch.optim as optim
 import torchtext
 import pickle
 
-
 from torchtext.vocab import Vectors
-from utils.bert import BertTokenizer, load_vocab
-from utils.config import PKL_FILE
+from appv1.bert import BertTokenizer, load_vocab
+from appv1.config import PKL_FILE, VOCAB_FILE, DATA_PATH
 
 
 def get_chABSA_DataLoaders_and_TEXT(max_length=256, batch_size=32):
@@ -33,8 +32,7 @@ def get_chABSA_DataLoaders_and_TEXT(max_length=256, batch_size=32):
     np.random.seed(1234)
     random.seed(1234)
     # 単語分割用のTokenizerを用意
-    vocab_path = "/mnt/c/Users/sinfo/Desktop/pytorch/pytorch_advanced-master/chABSA-dataset/vocab/vocab.txt"
-    tokenizer_bert = BertTokenizer(vocab_file=vocab_path, do_lower_case=False)
+    tokenizer_bert = BertTokenizer(vocab_file=VOCAB_FILE, do_lower_case=False)
 
     def preprocessing_text(text):
         # 半角・全角の統一
@@ -69,13 +67,12 @@ def get_chABSA_DataLoaders_and_TEXT(max_length=256, batch_size=32):
 
     # フォルダ「data」から各tsvファイルを読み込みます
     # BERT用で処理するので、10分弱時間がかかります
-    tsv_path = "/mnt/c/Users/sinfo/Desktop/pytorch/pytorch_advanced-master/chABSA-dataset/data"
     train_val_ds, test_ds = torchtext.data.TabularDataset.splits(
-        path=tsv_path, train='train.tsv',
+        path=DATA_PATH, train='train.tsv',
         test='test.tsv', format='tsv',
         fields=[('Text', TEXT), ('Label', LABEL)])
 
-    vocab_bert, ids_to_tokens_bert = load_vocab(vocab_file=vocab_path)
+    vocab_bert, ids_to_tokens_bert = load_vocab(vocab_file=VOCAB_FILE)
     TEXT.build_vocab(train_val_ds, min_freq=1)
     TEXT.vocab.stoi = vocab_bert    
     

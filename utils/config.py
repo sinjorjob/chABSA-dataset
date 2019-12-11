@@ -1,7 +1,7 @@
 
 from pathlib import Path
 
-BASE_DIR = Path("/mnt/c/Users/sinfo/Desktop/pytorch/pytorch_advanced-master/chABSA-dataset")
+BASE_DIR = Path("/mnt/c/Users/sinfo/Desktop/pytorch/pytorch_advanced-master/chABSA-dataset") #環境に応じて変更
 VOCAB_FILE = BASE_DIR / "vocab/vocab.txt"
 BERT_CONFIG = BASE_DIR / "weights/bert_config.json"
 model_file = BASE_DIR / "weights/pytorch_model.bin"

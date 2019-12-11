@@ -4,8 +4,8 @@ import string
 import torch
 import torchtext
 import pickle
-from utils.bert import get_config, load_vocab, BertModel, BertTokenizer, BertForchABSA, set_learned_params
-from utils.config import *
+from appv1.bert import get_config, load_vocab, BertModel, BertTokenizer, BertForchABSA, set_learned_params
+from appv1.config import *
 
 
 def pickle_dump(TEXT, path):
@@ -186,4 +186,16 @@ def predict(input_text, net_trained):
     _, preds = torch.max(outputs, 1)  # ラベルを予測
     html_output = mk_html(input, preds, attention_probs, TEXT)  # HTML作成
     return html_output
+
+
+def predict2(input_text, net_trained):
+    TEXT = pickle_load(PKL_FILE)   #vocabデータのロード
+    input = conver_to_model_format(input_text, TEXT)
+    input_pad = 1  # 単語のIDにおいて、'<pad>': 1 なので
+    input_mask = (input != input_pad)
+    outputs, attention_probs = net_trained(input, token_type_ids=None, attention_mask=None,
+                                       output_all_encoded_layers=False, attention_show_flg=True)
+    _, preds = torch.max(outputs, 1)  # ラベルを予測
+    #html_output = mk_html(input, preds, attention_probs, TEXT)  # HTML作成
+    return preds
 

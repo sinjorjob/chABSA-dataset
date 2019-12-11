@@ -19,7 +19,7 @@ import collections
 import torch
 from torch import nn
 from pyknp import Juman
-from utils.tokenizer import BasicTokenizer, WordpieceTokenizer, JumanTokenize
+from appv1.tokenizer import BasicTokenizer, WordpieceTokenizer, JumanTokenize
 
 
 def get_config(file_path):
